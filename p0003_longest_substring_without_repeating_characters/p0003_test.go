@@ -1,4 +1,4 @@
-package p0003_longest_substring
+package p0003
 
 import "testing"
 
