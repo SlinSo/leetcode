@@ -2,36 +2,21 @@ package p0003_longest_substring
 
 func lengthOfLongestSubstring(s string) int {
 	maxLen := 0
-	for i := range s {
-		m := make(map[byte]bool)
 
-		m[s[i]] = true
-		for j := i + 1; j < len(s); j++ {
-			if m[s[j]] {
-				break
-			}
-			m[s[j]] = true
+	m := make(map[byte]int)
+	for j, i := 0, 0; j < len(s); j++ {
+		if n, ok := m[s[j]]; ok {
+			i = max(n, i)
 		}
-
-		if len(m) > maxLen {
-			maxLen = len(m)
-			if maxLen >= len(s)-i {
-				break
-			}
-		}
+		maxLen = max(maxLen, j-i+1)
+		m[s[j]] = j + 1
 	}
-
 	return maxLen
 }
 
-int n = s.length(), ans = 0;
-Map<Character, Integer> map = new HashMap<>(); // current index of character
-// try to extend the range [i, j]
-for (int j = 0, i = 0; j < n; j++) {
-	if (map.containsKey(s.charAt(j))) {
-		i = Math.max(map.get(s.charAt(j)), i);
+func max(x, y int) int {
+	if x < y {
+		return y
 	}
-	ans = Math.max(ans, j - i + 1);
-	map.put(s.charAt(j), j + 1);
+	return x
 }
-return ans;
