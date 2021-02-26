@@ -1,51 +1,27 @@
 package p0006
 
-// with grid output
+import "strings"
+
 func convert(s string, numRows int) string {
-	l := len(s)
-
-	if numRows < 2 {
-		return s
-	}
-	if l <= numRows {
+	if numRows == 1 {
 		return s
 	}
 
-	cols := (l / numRows)
-	cols += (cols*numRows - 2 + numRows)
+	row := make([]string, len(s))
+	r := 0
+	down := false
 
-	grid := make([][]string, numRows)
-	for i := 0; i < numRows; i++ {
-		grid[i] = make([]string, cols)
-	}
-
-	block := 2*numRows - 1
-	nBlock := 0
-	c := 0
-	for i := 0; i < (nBlock+1)*block && i < l; i += (block - 1) {
-		n := 0
-		r := 0
-		for r = 0; r < numRows && (i+n) < l; r++ {
-			grid[r][c] = string(s[i+n])
-			n++
+	for _, c := range s {
+		row[r] += string(c)
+		if r == 0 || r == numRows-1 {
+			down = !down
 		}
-		r--
-		for r > 1 && (i+n) < l {
-			c++
+		if down {
+			r++
+		} else {
 			r--
-			grid[r][c] = string(s[i+n])
-			n++
-		}
-		c++
-		nBlock++
-	}
-
-	ans := ""
-	for i := 0; i < numRows; i++ {
-		for c := 0; c < cols; c++ {
-			ans += grid[i][c]
 		}
 	}
 
-	return ans
+	return strings.Join(row, "")
 }
