@@ -1,6 +1,10 @@
 package p0008
 
-import "testing"
+import (
+	"math"
+	"strconv"
+	"testing"
+)
 
 func Test_myAtoi(t *testing.T) {
 	type args struct {
@@ -96,11 +100,18 @@ func Test_myAtoi(t *testing.T) {
 			want: -42,
 		},
 		{
-			name: "ex12",
+			name: "ex13",
 			args: args{
 				s: "-42+",
 			},
 			want: -42,
+		},
+		{
+			name: "ex14",
+			args: args{
+				s: strconv.Itoa(math.MaxInt32),
+			},
+			want: math.MaxInt32,
 		},
 	}
 	for _, tt := range tests {

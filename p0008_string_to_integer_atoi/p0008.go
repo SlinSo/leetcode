@@ -7,8 +7,49 @@ import (
 	"strings"
 )
 
-// cheating using strconv.Atoi, boilerplate is needed to mimic C atoi behaviour
+func isSpace(b byte) bool {
+	return b == ' ' || b == '\t' || b == '\n' || b == '\v' || b == '\f' || b == '\r'
+}
+
 func myAtoi(s string) int {
+	res := 0
+	sgn := 1
+	if s == "" {
+		return 0
+	}
+
+	for ; s != "" && isSpace(s[0]); s = s[1:] {
+
+	}
+	if s == "" {
+		return 0
+	}
+
+	if s[0] == '-' {
+		sgn = -1
+		s = s[1:]
+	} else if s[0] == '+' {
+		s = s[1:]
+	}
+
+	for ; s != ""; s = s[1:] {
+		d := int(s[0] - '0')
+		if d > 9 {
+			return sgn * res
+		}
+		res = res*10 + d
+		if sgn*res > math.MaxInt32 {
+			return math.MaxInt32
+		} else if sgn*res < math.MinInt32 {
+			return math.MinInt32
+		}
+	}
+
+	return sgn * res
+}
+
+// cheating using strconv.Atoi, boilerplate is needed to mimic C atoi behaviour
+func myAtoiCheat(s string) int {
 	s = strings.TrimSpace(s)
 	if s == "" {
 		return 0
