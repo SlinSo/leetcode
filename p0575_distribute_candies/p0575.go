@@ -13,6 +13,9 @@ func distributeCandies(candyType []int) int {
 		if candyType[i] != candyType[i-1] {
 			numTypes++
 		}
+		if numTypes == upperBound {
+			return numTypes
+		}
 	}
 
 	return min(numTypes, upperBound)
