@@ -5,11 +5,8 @@ import (
 )
 
 func isMatch(s string, p string) bool {
-	if s == p {
-		return true
-	}
-	if p == "" {
-		return s == ""
+	if !isRegex(p) {
+		return s == p
 	}
 
 	first_match := s != "" && (p[0] == s[0] || p[0] == '.')
@@ -19,6 +16,18 @@ func isMatch(s string, p string) bool {
 	} else {
 		return first_match && isMatch(s[1:], p[1:])
 	}
+}
+
+func isRegex(p string) bool {
+	for _, r := range p {
+		if r == '.' {
+			return true
+		}
+		if r == '*' {
+			return true
+		}
+	}
+	return false
 }
 
 func isMatchCheating(s string, p string) bool {
