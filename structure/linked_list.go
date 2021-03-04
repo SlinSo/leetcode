@@ -4,15 +4,23 @@ import "strconv"
 
 func NewListNode(nums []int) *ListNode {
 	l := &ListNode{}
-	lTemp := l
+	t := l
 
-	for i := 0; i < len(nums); i++ {
-		lTemp.Val = nums[i]
-		if i+1 < len(nums) {
-			lTemp.Next = &ListNode{}
-			lTemp = lTemp.Next
-		}
+	for _, n := range nums {
+		t.Next = &ListNode{Val: n}
+		t = t.Next
 	}
+
+	return l.Next
+}
+
+func ListCombine(l, r *ListNode) *ListNode {
+	t := l
+
+	for t.Next != nil {
+		t = t.Next
+	}
+	t.Next = r
 
 	return l
 }
